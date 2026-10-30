@@ -736,8 +736,8 @@ function screenWelcome(){
     document.getElementById("cont").addEventListener("click",()=>go(screenOverview));
     document.getElementById("newst").addEventListener("click",()=>{ S=fresh(); save(); go(screenWelcome); });
   } else { who.innerHTML=`<h3>Before you begin</h3><p class="muted small">Your name and roll number appear on your result card.</p>
-    <div class="who-grid"><div class="field"><label for="nm">Full name</label><input class="input" id="nm" maxlength="60" autocomplete="name" placeholder="e.g. Hiba Imran"></div>
-    <div class="field"><label for="rl">Roll number</label><input class="input" id="rl" maxlength="30" autocomplete="off" placeholder="e.g. 23CS045"></div></div>
+    <div class="who-grid"><div class="field"><label for="nm">Full name</label><input class="input" id="nm" maxlength="60" autocomplete="name" placeholder="e.g. Imran Ali"></div>
+    <div class="field"><label for="rl">Roll number</label><input class="input" id="rl" maxlength="30" autocomplete="off" placeholder="e.g. 23BSCYS045"></div></div>
     <div class="err" id="err" aria-live="polite"></div><button class="btn" id="startBtn" style="margin-top:4px">Start</button>`;
     const nm=document.getElementById("nm"), rl=document.getElementById("rl"), err=document.getElementById("err");
     function start(){ const n=nm.value.trim().replace(/\s+/g," "), r=rl.value.trim();
