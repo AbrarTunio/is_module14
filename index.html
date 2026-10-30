@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<title>Cybercrime, Privacy &amp; Ethics – Activity Lab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+/* Law & ethics theme — indigo + rose. Always light. */
+:root{
+  color-scheme:light;
+  --bg:#f6f6fb; --surface:#ffffff; --surface-2:#ecebf7; --border:#e0def0; --border-2:#c9c6e6; --line:#e6e4f2;
+  --text:#1c1a36; --muted:#5e5b7e; --faint:#9490b4;
+  --primary:#4338ca; --primary-dark:#362ba3; --primary-soft:#e6e5fb; --primary-ink:#ffffff; --accent:#be185d; --accent-soft:#fbe6ef;
+  --good:#1a7a46; --good-soft:#e6f5ec; --good-border:#a2d8b7; --bad:#be2a22; --bad-soft:#fcecea; --bad-border:#eeb3ad;
+  --warn:#9a6a08; --warn-soft:#fdf4df; --warn-border:#eed9a6;
+  --topbar:rgba(246,246,251,.9);
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:light;
+  --bg:#f6f6fb;--surface:#fff;--surface-2:#ecebf7;--border:#e0def0;--border-2:#c9c6e6;--line:#e6e4f2;--text:#1c1a36;--muted:#5e5b7e;--faint:#9490b4;
+  --primary:#4338ca;--primary-dark:#362ba3;--primary-soft:#e6e5fb;--primary-ink:#fff;--accent:#be185d;--accent-soft:#fbe6ef;
+  --good:#1a7a46;--good-soft:#e6f5ec;--good-border:#a2d8b7;--bad:#be2a22;--bad-soft:#fcecea;--bad-border:#eeb3ad;--warn:#9a6a08;--warn-soft:#fdf4df;--warn-border:#eed9a6;--topbar:rgba(246,246,251,.9);}}
+:root[data-theme="dark"]{color-scheme:light;
+  --bg:#f6f6fb;--surface:#fff;--surface-2:#ecebf7;--border:#e0def0;--border-2:#c9c6e6;--line:#e6e4f2;--text:#1c1a36;--muted:#5e5b7e;--faint:#9490b4;
+  --primary:#4338ca;--primary-dark:#362ba3;--primary-soft:#e6e5fb;--primary-ink:#fff;--accent:#be185d;--accent-soft:#fbe6ef;
+  --good:#1a7a46;--good-soft:#e6f5ec;--good-border:#a2d8b7;--bad:#be2a22;--bad-soft:#fcecea;--bad-border:#eeb3ad;--warn:#9a6a08;--warn-soft:#fdf4df;--warn-border:#eed9a6;--topbar:rgba(246,246,251,.9);}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 74px);background:#f6f6fb}
+body{margin:0;min-height:100%;background:var(--bg);color:var(--text);font-family:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;font-size:16.5px;line-height:1.6;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--topbar)}
+img,svg{max-width:100%}
+h1,h2,h3,h4{font-family:"Space Grotesk","Inter",system-ui,sans-serif;margin:0 0 .5em;line-height:1.2;font-weight:700;letter-spacing:-.01em}
+h1{font-size:clamp(1.9rem,5vw,2.9rem)}h2{font-size:clamp(1.35rem,3vw,1.75rem)}h3{font-size:1.14rem}h4{font-size:1rem}
+p{margin:0 0 .8em}b,strong{font-weight:600}
+.mono,code{font-family:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace}
+code{font-size:.85em;background:var(--surface-2);border:1px solid var(--border);padding:.03em .35em;border-radius:5px;word-break:break-word}
+button{font-family:inherit}
+:focus-visible{outline:2px solid var(--primary);outline-offset:2px;border-radius:6px}
+.wrap{max-width:840px;margin:0 auto;padding:22px 20px 72px}
+.small{font-size:.88rem}.muted{color:var(--muted)}
+.row{display:flex;align-items:center;gap:10px}.row.wrap{flex-wrap:wrap}.between{justify-content:space-between}.end{justify-content:flex-end}.center{justify-content:center}
+.stack>*+*{margin-top:16px}
+
+.topbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--topbar);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.topbar-in{max-width:840px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:12px}
+.brand{display:flex;align-items:center;gap:9px;background:none;border:0;padding:0;cursor:pointer;color:var(--text);text-align:left}
+.brand:disabled{cursor:default}
+.brand-ic{width:28px;height:28px;border-radius:8px;background:var(--primary);color:var(--primary-ink);display:grid;place-items:center;font-size:14px;flex:none}
+.brand-t{font-family:"Space Grotesk",sans-serif;font-weight:700;font-size:.98rem;line-height:1}
+.brand-t small{display:block;font-weight:400;font-size:.76rem;color:var(--muted);margin-top:2px;font-family:"Inter"}
+.tb-right{margin-left:auto;display:flex;align-items:center;gap:12px}
+.tb-steps{font-size:.82rem;color:var(--muted);font-weight:600}.tb-steps b{color:var(--primary)}
+.student{font-size:.84rem;line-height:1.15;text-align:right}.student small{display:block;color:var(--muted)}
+
+.card{background:var(--surface);border:1px solid var(--border);border-radius:15px;padding:clamp(18px,3.2vw,28px)}
+.bare{padding:2px 0}
+.eyebrow{font-size:.76rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+.lead{font-size:1.06rem;color:var(--muted)}
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:.8rem;font-weight:600;padding:3px 10px;border-radius:999px;background:var(--surface-2);border:1px solid var(--border);color:var(--muted)}
+.pill.on{background:var(--primary-soft);border-color:#c6c2f0;color:var(--primary)}
+.rail{height:4px;background:var(--surface-2);border-radius:99px;overflow:hidden}.rail>i{display:block;height:100%;background:var(--primary);transition:width .4s ease}
+.btn{appearance:none;border:1px solid var(--primary);border-radius:10px;padding:11px 18px;font-size:.96rem;font-weight:600;cursor:pointer;background:var(--primary);color:var(--primary-ink);display:inline-flex;align-items:center;justify-content:center;gap:7px;transition:background .18s,border-color .18s}
+.btn:hover{background:var(--primary-dark);border-color:var(--primary-dark)}.btn:active{transform:translateY(1px)}.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn-ghost{background:transparent;color:var(--primary);border-color:var(--border-2)}.btn-ghost:hover{background:var(--primary-soft)}
+.btn-quiet{background:transparent;color:var(--muted);border-color:var(--border)}.btn-quiet:hover{background:var(--surface-2);color:var(--text)}
+.btn-sm{padding:7px 13px;font-size:.88rem;border-radius:8px}
+.field label{font-weight:600;font-size:.9rem;display:block;margin-bottom:6px}
+.input{font:inherit;padding:11px 13px;border-radius:9px;border:1px solid var(--border-2);background:var(--surface);color:var(--text);outline:none;width:100%;transition:border .18s}
+.input:focus{border-color:var(--primary)}
+.err{color:var(--bad);font-size:.88rem;font-weight:600;min-height:1.2em;margin-top:6px}
+
+.facts{list-style:none;padding:0;margin:14px 0 0;display:grid;gap:7px}
+.facts li{display:flex;gap:9px;align-items:baseline;font-size:.96rem}.facts li::before{content:"▸";color:var(--accent);font-weight:700}
+.who-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.obj{margin:0;padding:0;list-style:none;display:grid;gap:7px;counter-reset:o}
+.obj li{display:flex;gap:10px;font-size:.96rem}
+.obj li::before{content:counter(o);counter-increment:o;flex:none;width:22px;height:22px;border-radius:6px;background:var(--primary-soft);color:var(--primary);font-size:.78rem;font-weight:700;display:grid;place-items:center}
+.marks{width:100%;border-collapse:collapse;font-size:.92rem}
+.marks th,.marks td{padding:9px 2px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.marks tr:last-child td{border-bottom:0}.marks th{font-weight:600;color:var(--muted);font-size:.78rem;text-transform:uppercase;letter-spacing:.04em}
+.path{display:grid;gap:10px}
+.pcard{display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:center;border:1px solid var(--border);border-radius:12px;padding:14px 16px;background:var(--surface)}
+.pcard.locked{opacity:.55}
+.pnum{width:30px;height:30px;border-radius:8px;background:var(--primary-soft);color:var(--primary);display:grid;place-items:center;font-weight:700;font-size:.95rem;font-family:"Space Grotesk"}
+.pcard.quiz .pnum{background:var(--primary);color:var(--primary-ink)}
+.ptitle{font-weight:600;font-size:1rem}.pmeta{font-size:.82rem;color:var(--muted);margin-top:2px}
+
+.crumbs{font-size:.82rem;color:var(--muted);margin-bottom:8px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.key{border-left:3px solid var(--accent);padding:4px 0 4px 14px;margin-top:14px}.key b{color:var(--primary)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}
+.box{border:1px solid var(--border);border-radius:11px;padding:13px 15px;background:var(--surface-2)}.box h4{color:var(--primary);margin-bottom:3px}
+.defn{display:grid;gap:8px;margin:10px 0}.defn .d{border:1px solid var(--border);border-radius:11px;padding:11px 14px;font-size:.93rem}.defn .d b{color:var(--primary)}
+.warnline{background:var(--warn-soft);border:1px solid var(--warn-border);border-radius:9px;padding:8px 12px;font-size:.88rem;margin-bottom:12px}
+.actwrap{border:1px solid var(--border-2);border-radius:13px;padding:clamp(15px,3vw,22px);margin-top:4px;background:var(--surface)}
+.act-top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}
+.act-label{font-size:.76rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--accent)}
+.badge{display:none;font-size:.8rem;font-weight:600;color:var(--good);align-items:center;gap:5px}.actwrap.done .badge{display:inline-flex}
+.task{font-weight:600;font-size:.98rem;margin-bottom:14px}
+.hintarea{margin-top:14px;padding-top:12px;border-top:1px dashed var(--border-2)}
+.hintbox{background:var(--surface-2);border:1px solid var(--border);padding:9px 13px;border-radius:9px;margin-top:9px;font-size:.92rem;animation:fade .2s}
+.fb{padding:11px 14px;border-radius:9px;margin-top:11px;font-size:.94rem;border:1px solid var(--border);background:var(--surface-2);animation:fade .2s}
+.fb.good{background:var(--good-soft);border-color:var(--good-border);color:#115330}
+.fb.bad{background:var(--bad-soft);border-color:var(--bad-border);color:#881d17}
+.fb .act-next{margin-top:9px}
+.stepnav{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:18px}
+.dots{display:flex;gap:5px}.dots i{width:7px;height:7px;border-radius:99px;background:var(--border-2);transition:.3s}.dots i.ok{background:var(--accent)}.dots i.on{width:20px;background:var(--primary)}
+.part{margin:18px 0 9px;font-size:.98rem;font-weight:700;color:var(--primary);font-family:"Space Grotesk"}.part:first-child{margin-top:0}
+
+.tasks{display:grid;gap:6px;margin-top:14px}
+.tk{display:flex;gap:9px;align-items:center;font-size:.92rem;font-weight:500;color:var(--muted)}
+.tick{width:20px;height:20px;border-radius:50%;border:1.5px solid var(--border-2);display:grid;place-items:center;font-size:.72rem;flex:none;color:transparent;transition:.2s}
+.tk.ok{color:var(--good)}.tk.ok .tick{background:var(--good);border-color:var(--good);color:#fff}
+.toggle{display:inline-flex;align-items:center;gap:9px;font-weight:600;font-size:.92rem;cursor:pointer;border:1px solid var(--border-2);border-radius:10px;padding:9px 13px;background:var(--surface)}
+.toggle input{display:none}.toggle .sw{width:38px;height:22px;border-radius:999px;background:var(--border-2);position:relative;transition:.2s;flex:none}
+.toggle .sw::after{content:"";position:absolute;top:2px;left:2px;width:18px;height:18px;border-radius:50%;background:#fff;transition:.2s}
+.toggle.on .sw{background:var(--primary)}.toggle.on .sw::after{left:18px}
+.seg{display:inline-flex;background:var(--surface-2);border:1px solid var(--border);border-radius:11px;padding:4px;gap:4px;flex-wrap:wrap}
+.seg button{font-size:.86rem;font-weight:600;border:0;background:transparent;color:var(--muted);padding:7px 11px;border-radius:8px;cursor:pointer}
+.seg button.on{background:var(--surface);color:var(--primary);box-shadow:0 1px 2px rgba(0,0,0,.06)}
+
+.statusline{font-weight:600;border-radius:9px;padding:9px 13px;margin-top:10px;font-size:.95rem}
+.statusline.up{background:var(--good-soft);color:#115330;border:1px solid var(--good-border)}
+.statusline.down{background:var(--bad-soft);color:#881d17;border:1px solid var(--bad-border)}
+.statusline.warn{background:var(--warn-soft);color:#7a4f00;border:1px solid var(--warn-border)}
+.statusline.neutral{background:var(--surface-2);color:var(--muted);border:1px solid var(--border)}
+
+/* choice */
+.cq-top{display:flex;align-items:center;gap:10px;font-size:.82rem;color:var(--muted)}.cq-top .rail{flex:1}
+.cq-q{font-size:1.02rem;margin:12px 0}.opts{display:grid;gap:9px}
+.opt{font-size:.96rem;font-weight:500;padding:11px 14px;border-radius:9px;border:1px solid var(--border-2);background:var(--surface);color:var(--text);cursor:pointer;text-align:left;line-height:1.4;transition:.15s}
+.opt:hover:not(:disabled){border-color:var(--primary);background:var(--primary-soft)}.opt:disabled{cursor:default}
+.opt.right{border-color:var(--good);background:var(--good-soft);color:#115330}.opt.wrong{border-color:var(--bad);background:var(--bad-soft);color:#881d17}
+
+/* assign rows */
+.arow{border:1px solid var(--border-2);border-radius:11px;padding:11px 13px;background:var(--surface);margin-bottom:9px}
+.arow .lab{font-weight:600;font-size:.94rem;margin-bottom:8px}
+.arow .verdict{font-size:.9rem;margin-top:8px}
+.arow.ok{border-color:var(--good-border);background:var(--good-soft)}.arow.no{border-color:var(--bad-border);background:var(--bad-soft)}
+
+/* reveal nodes (jurisdiction) */
+.netrow{display:flex;align-items:stretch;justify-content:space-between;gap:8px;margin:12px 0}
+.jnode{flex:1 1 0;border:1.5px solid var(--border-2);border-radius:12px;padding:12px 10px;background:var(--surface);cursor:pointer;text-align:center;transition:.15s}
+.jnode:hover{border-color:var(--accent)}
+.jnode.open{border-color:var(--primary);background:var(--primary-soft);cursor:default}
+.jnode .ic{font-size:26px;display:block;line-height:1}
+.jnode .nm{font-weight:600;font-size:.9rem;margin-top:4px}
+.jnode .rv{font-size:.82rem;color:var(--muted);margin-top:6px;min-height:1em}
+.jarrow{align-self:center;color:var(--muted);font-weight:700}
+
+/* quadrant */
+.qgrid{display:grid;grid-template-columns:auto 1fr 1fr;grid-template-rows:auto 1fr 1fr;gap:6px;max-width:460px;margin:12px auto}
+.qcell{border-radius:10px;border:2px solid transparent;cursor:pointer;padding:12px 10px;font-size:.82rem;font-weight:600;text-align:center;min-height:72px;display:flex;flex-direction:column;justify-content:center;transition:.12s}
+.qcell:hover{border-color:var(--text)}
+.qcell.pick{border-color:var(--text);box-shadow:0 0 0 2px var(--surface),0 0 0 4px var(--text)}
+.qcell.q-le{background:var(--good-soft);color:#115330}.qcell.q-lu{background:var(--warn-soft);color:#7a4f00}.qcell.q-ie{background:var(--accent-soft);color:#8f1248}.qcell.q-iu{background:var(--bad-soft);color:#881d17}
+.qlabel{display:flex;align-items:center;justify-content:center;font-size:.78rem;color:var(--muted);font-weight:600;text-align:center}
+.qlabel.vert{writing-mode:vertical-rl;transform:rotate(180deg)}
+
+/* form minimize */
+.ff{display:grid;gap:7px;margin:10px 0}
+.frow{display:flex;align-items:center;gap:10px;border:1px solid var(--border-2);border-radius:10px;padding:9px 12px;background:var(--surface);cursor:pointer;transition:.12s}
+.frow:hover{border-color:var(--primary)}
+.frow.on{border-color:var(--primary);background:var(--primary-soft)}
+.frow .chk{width:20px;height:20px;border-radius:5px;border:1.5px solid var(--border-2);display:grid;place-items:center;font-size:.72rem;color:transparent;flex:none}
+.frow.on .chk{background:var(--primary);border-color:var(--primary);color:#fff}
+.frow .fn{font-weight:500;font-size:.93rem}
+.frow .tagn{margin-left:auto;font-size:.76rem;color:var(--faint)}
+.frow.flag-ok{border-color:var(--good-border);background:var(--good-soft)}.frow.flag-bad{border-color:var(--bad-border);background:var(--bad-soft)}
+
+/* decision path */
+.dstep{border:1px solid var(--border-2);border-radius:12px;padding:14px;background:var(--surface)}
+.dstep .q{font-weight:600;margin-bottom:10px}
+.dopts{display:grid;gap:8px}
+.dopt{text-align:left;border:1px solid var(--border-2);border-radius:10px;padding:10px 13px;background:var(--surface);cursor:pointer;font-size:.94rem;transition:.12s}
+.dopt:hover:not(:disabled){border-color:var(--primary);background:var(--primary-soft)}
+.dopt:disabled{cursor:default}.dopt.right{border-color:var(--good);background:var(--good-soft)}.dopt.wrong{border-color:var(--bad);background:var(--bad-soft)}
+.dprog{display:flex;gap:6px;margin-bottom:10px}
+.dprog i{flex:1;height:5px;border-radius:99px;background:var(--surface-2)}.dprog i.ok{background:var(--good)}.dprog i.on{background:var(--primary)}
+
+.done-head{text-align:center;padding:6px 0 2px}
+.check{width:46px;height:46px;border-radius:50%;background:var(--primary-soft);color:var(--primary);display:grid;place-items:center;font-size:22px;margin:0 auto 10px}
+.take{margin:0;padding:0;list-style:none;display:grid;gap:7px}.take li{display:flex;gap:9px;font-size:.95rem}.take li::before{content:"✓";color:var(--good);font-weight:700}
+
+.qprompt{font-size:1.1rem;margin:12px 0}.qopts{display:grid;gap:9px}
+.qopt{display:flex;gap:11px;align-items:center;text-align:left;font-size:.96rem;padding:11px 13px;border-radius:10px;border:1px solid var(--border-2);background:var(--surface);color:var(--text);cursor:pointer;transition:.15s}
+.qopt:hover:not(:disabled){border-color:var(--primary);background:var(--surface-2)}.qopt:disabled{cursor:default}
+.ltr{width:27px;height:27px;border-radius:7px;background:var(--surface-2);display:grid;place-items:center;font-weight:700;font-size:.85rem;flex:none;border:1px solid var(--border)}
+.qopt.sel{border-color:var(--primary);background:var(--primary-soft)}.qopt.sel .ltr{background:var(--primary);color:#fff;border-color:var(--primary)}
+.qopt.right{border-color:var(--good);background:var(--good-soft)}.qopt.right .ltr{background:var(--good);color:#fff}
+.qopt.wrong{border-color:var(--bad);background:var(--bad-soft)}.qopt.wrong .ltr{background:var(--bad);color:#fff}
+.ring{width:140px;height:140px;border-radius:50%;background:conic-gradient(var(--primary) calc(var(--p)*1%),var(--surface-2) 0);display:grid;place-items:center;margin:0 auto}
+.ring>div{width:112px;height:112px;border-radius:50%;background:var(--surface);display:grid;place-items:center;text-align:center;line-height:1}
+.ring b{font-family:"Space Grotesk";font-size:2.3rem;color:var(--primary)}.ring span{display:block;color:var(--muted);font-size:.9rem;margin-top:3px}
+.kv{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:16px}.kv div{border:1px solid var(--border);border-radius:9px;padding:8px 11px}.kv small{display:block;color:var(--muted);font-size:.8rem}.kv b{font-size:.98rem;font-weight:600;word-break:break-word}
+.status-pass{color:var(--good)}.status-fail{color:var(--bad)}
+.review{margin:0;padding:0;list-style:none;display:grid;gap:9px}.review li{border:1px solid var(--border);border-radius:10px;padding:11px 13px;font-size:.92rem}.review .yes{color:var(--good);font-weight:600}.review .no{color:var(--bad);font-weight:600}
+.copybox{width:100%;min-height:140px;font-family:"JetBrains Mono";font-size:.82rem;border-radius:10px;border:1px solid var(--border-2);padding:11px;background:var(--surface);color:var(--text);margin-top:10px}
+.foot{text-align:center;color:var(--faint);font-size:.82rem;padding:0 20px 28px}
+.screen{animation:fade .3s ease}
+@keyframes fade{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.shake{animation:shake .35s}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media (max-width:620px){.two,.who-grid,.kv{grid-template-columns:1fr}.pcard{grid-template-columns:auto 1fr}.pcard .btn{grid-column:1/-1}.tb-steps{display:none}.netrow{flex-wrap:wrap}.jarrow{flex-basis:100%;transform:rotate(90deg)}}
+</style>
+</head>
+<body>
+<header class="topbar" id="topbar"></header>
+<main id="app" class="wrap"></main>
+<footer class="foot">A learning activity about the law, privacy and ethics of security. Progress is saved in this browser only; on a shared computer, choose “Different student”.</footer>
+
+<script>
+(function(){
+"use strict";
+const rootEl=document.documentElement;
+function forceLight(){ if(rootEl.getAttribute("data-theme")!=="light") rootEl.setAttribute("data-theme","light"); }
+forceLight(); try{ new MutationObserver(forceLight).observe(rootEl,{attributes:true,attributeFilter:["data-theme"]}); }catch(e){}
+
+const KEY="cpe-activity-lab-v1", TOTAL=15;
+const app=document.getElementById("app"), topbar=document.getElementById("topbar");
+function fresh(){ return {name:"",roll:"",maxPos:-1,done:{},results:[]}; }
+let S=fresh();
+function save(){ try{ localStorage.setItem(KEY,JSON.stringify(S)); }catch(e){} }
+function load(){ try{ const v=localStorage.getItem(KEY); if(v){ const o=JSON.parse(v); if(o&&typeof o==="object") S=Object.assign(fresh(),o); } }catch(e){} }
+function esc(s){ return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
+function shuffle(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function shake(el){ el.classList.remove("shake"); void el.offsetWidth; el.classList.add("shake"); }
+function blk(h){ const d=document.createElement("div"); d.innerHTML=h; return d; }
+function doneCount(){ return Object.keys(S.done).filter(k=>S.done[k]).length; }
+let mode="welcome";
+
+function choiceQuiz(root, cfg){
+  const items=cfg.items; let i=0,first=0,missed=false;
+  const wrap=document.createElement("div"); root.appendChild(wrap);
+  function show(){
+    if(i>=items.length){ wrap.innerHTML=`<div class="fb good">All ${items.length} correct — first try: <b>${first}/${items.length}</b>.</div>`; if(cfg.onDone) cfg.onDone(); return; }
+    const it=items[i]; missed=false; let opts=(it.opts||cfg.options).slice(); if(cfg.shuffle) opts=shuffle(opts);
+    wrap.innerHTML=`<div class="cq-top"><span>${i+1}/${items.length}</span><span class="rail"><i style="width:${i/items.length*100}%"></i></span></div>
+      <div class="cq-q">${it.q}</div><div class="opts">${opts.map((o,k)=>`<button class="opt" data-k="${k}">${o}</button>`).join("")}</div><div class="cqfb" aria-live="polite"></div>`;
+    const fb=wrap.querySelector(".cqfb");
+    wrap.querySelectorAll(".opt").forEach(b=>b.addEventListener("click",()=>{ const o=opts[+b.dataset.k];
+      if(o===it.a){ if(!missed) first++; wrap.querySelectorAll(".opt").forEach(x=>x.disabled=true); b.classList.add("right");
+        fb.innerHTML=`<div class="fb good">${it.why}<div class="act-next"><button class="btn btn-sm">${i+1<items.length?"Next":"Finish"}</button></div></div>`;
+        fb.querySelector("button").addEventListener("click",()=>{ i++; show(); });
+      } else { missed=true; b.classList.add("wrong"); b.disabled=true; shake(b); fb.innerHTML=`<div class="fb bad">${it.hint||cfg.hint||"Try another option."}</div>`; }
+    }));
+  }
+  show();
+}
+function assignGame(root, cfg, onDone){
+  const choice={};
+  root.innerHTML=`${cfg.intro?`<p class="small muted">${cfg.intro}</p>`:""}<div id="rows"></div>
+    <div class="row" style="margin-top:4px"><button class="btn btn-sm" id="check">${cfg.checkLabel||"Check"}</button></div><div id="afb" aria-live="polite"></div>`;
+  const rows=root.querySelector("#rows"), fb=root.querySelector("#afb");
+  cfg.items.forEach((it,idx)=>{ const el=blk(`<div class="arow" data-idx="${idx}"><div class="lab">${it.label}</div><div class="seg">${cfg.options.map(o=>`<button data-o="${o.id}">${o.label}</button>`).join("")}</div><div class="verdict"></div></div>`).firstElementChild;
+    el.querySelectorAll(".seg button").forEach(b=>b.addEventListener("click",()=>{ choice[idx]=b.dataset.o; el.querySelectorAll(".seg button").forEach(x=>x.classList.toggle("on",x===b)); el.classList.remove("ok","no"); el.querySelector(".verdict").textContent=""; }));
+    rows.appendChild(el); });
+  root.querySelector("#check").addEventListener("click",()=>{
+    const unplaced=cfg.items.filter((_,i)=>!choice[i]).length; if(unplaced){ fb.innerHTML=`<div class="fb">Assign all ${cfg.items.length} first (${unplaced} left).</div>`; return; }
+    let allOk=true; cfg.items.forEach((it,i)=>{ const el=rows.children[i], ok=choice[i]===it.correct; if(!ok) allOk=false;
+      el.classList.remove("ok","no"); el.classList.add(ok?"ok":"no"); const name=cfg.options.find(o=>o.id===it.correct).label;
+      el.querySelector(".verdict").innerHTML=ok?`✓ ${it.why}`:`✗ Should be <b>${name}</b>. ${it.why}`; });
+    if(allOk){ fb.innerHTML=`<div class="fb good">${cfg.doneMsg||"✅ All correct!"}</div>`; onDone(); }
+    else fb.innerHTML=`<div class="fb bad">Some are wrong (marked ✗). Fix them and check again.</div>`;
+  });
+}
+
+/* ============ LESSON 1 ============ */
+function a_targetTool(root, api){
+  const T="Computer as the TARGET", O="Computer as a TOOL";
+  choiceQuiz(root,{ options:[T,O], shuffle:true,
+    hint:"Is the computer the victim being attacked, or just the instrument used to commit an old-fashioned crime?",
+    items:[
+      {q:"Hacking into a hospital’s systems to steal patient records.", a:T, why:"The computer system itself is the victim — it’s the target."},
+      {q:"Running a romance scam over email to con someone out of money.", a:O, why:"Fraud is the crime; the computer is merely the tool used to commit it."},
+      {q:"Launching a denial-of-service attack to take a website offline.", a:T, why:"The attack is aimed at the system itself — the computer is the target."},
+      {q:"Using a marketplace to sell counterfeit goods.", a:O, why:"An old crime (counterfeiting) carried out through a computer — the computer is a tool."},
+      {q:"Spreading a virus that corrupts files across a network.", a:T, why:"The malware attacks the computers — they are the target."},
+      {q:"Harassing and threatening someone through social media.", a:O, why:"Harassment is the offence; social media is just the medium — a tool."}
+    ], onDone:api.complete });
+}
+function a_crimeMatch(root, api){
+  assignGame(root,{
+    intro:"Match each case file to the specific type of cybercrime.",
+    options:[{id:"ua",label:"Unauthorized access"},{id:"fr",label:"Fraud"},{id:"id",label:"Identity theft"},{id:"ip",label:"IP infringement"},{id:"cs",label:"Cyberstalking"}],
+    items:[
+      {label:"Breaking into a server you have no right to use", correct:"ua", why:"Gaining access without authorization — the core ‘hacking’ offence."},
+      {label:"Tricking a firm into paying a fake invoice", correct:"fr", why:"Deception for financial gain is fraud."},
+      {label:"Opening bank accounts using someone else’s stolen details", correct:"id", why:"Impersonating a real person is identity theft."},
+      {label:"Distributing pirated films and software for download", correct:"ip", why:"Copying protected works without permission is intellectual-property infringement."},
+      {label:"Repeatedly threatening and tracking a person online", correct:"cs", why:"Persistent online harassment is cyberstalking."}
+    ], checkLabel:"File the cases", doneMsg:"✅ All filed correctly. Naming the offence is the first step in applying the right law."
+  }, api.complete);
+}
+function a_jurisdiction(root, api){
+  const nodes=[
+    {id:"a", ic:"😈", nm:"Attacker — Country A", rv:"Country A may not criminalise this act, or may refuse to extradite its own citizen."},
+    {id:"s", ic:"🖥️", nm:"Servers — Country B", rv:"Evidence sits in Country B, under its laws — you need its cooperation to obtain it."},
+    {id:"v", ic:"🎯", nm:"Victim — Country C", rv:"The harm is felt in Country C, but its police have no power in A or B."}
+  ];
+  const opened=new Set(); let built=false;
+  root.innerHTML=`<p class="small muted">One cyberattack can span three countries at once. Click each party to reveal why that makes prosecution so hard.</p>
+    <div class="netrow">
+      <div class="jnode" data-id="a"><span class="ic">😈</span><div class="nm">Attacker · Country A</div><div class="rv">click to reveal</div></div>
+      <div class="jarrow">→</div>
+      <div class="jnode" data-id="s"><span class="ic">🖥️</span><div class="nm">Servers · Country B</div><div class="rv">click to reveal</div></div>
+      <div class="jarrow">→</div>
+      <div class="jnode" data-id="v"><span class="ic">🎯</span><div class="nm">Victim · Country C</div><div class="rv">click to reveal</div></div>
+    </div>
+    <div id="jq"></div>`;
+  root.querySelectorAll(".jnode").forEach(n=>n.addEventListener("click",()=>{ if(n.classList.contains("open")) return; const nd=nodes.find(x=>x.id===n.dataset.id); n.classList.add("open"); n.querySelector(".rv").textContent=nd.rv; opened.add(n.dataset.id);
+    if(opened.size===3 && !built){ built=true; choiceQuiz(root.querySelector("#jq"),{ items:[{ q:"Why is cross-border cybercrime so hard to prosecute?", opts:["Different countries, different laws, scattered evidence and no single police force with power everywhere","Computers are too fast","Victims never report it","It isn’t actually hard"], a:"Different countries, different laws, scattered evidence and no single police force with power everywhere", why:"Jurisdiction, differing laws, extradition and evidence-sharing all complicate it — which is why international cooperation (treaties, agencies) matters." }], onDone:api.complete }); }
+  }));
+}
+function a_elements(root, api){
+  let m1=false,m2=false;
+  root.innerHTML=`<p class="small muted">The <b>same technical act</b> — accessing a company’s system — can be a serious crime or a paid job. Two things decide which: whether you had <b>authorization</b>, and whether you acted with <b>intent</b>.</p>
+    <div class="row wrap" style="margin:4px 0 2px">
+      <label class="toggle" id="auT"><input type="checkbox" id="auth"><span class="sw"></span>✅ Had authorization (written permission)</label>
+      <label class="toggle on" id="inT"><input type="checkbox" id="intent" checked><span class="sw"></span>🧠 Acted knowingly / with intent</label>
+    </div>
+    <div class="statusline down" id="st"></div>
+    <div class="tasks">
+      <div class="tk" id="t1"><span class="tick">✓</span>See how an unauthorized, intentional access is a crime</div>
+      <div class="tk" id="t2"><span class="tick">✓</span>Add written authorization and watch the same act become legal</div>
+    </div>`;
+  const auth=root.querySelector("#auth"), intent=root.querySelector("#intent");
+  function update(){ root.querySelector("#auT").classList.toggle("on",auth.checked); root.querySelector("#inT").classList.toggle("on",intent.checked);
+    const st=root.querySelector("#st");
+    if(auth.checked){ st.className="statusline up"; st.innerHTML="✅ Legal — with written permission this is authorized security testing (e.g. a hired penetration tester). Authorization is the dividing line."; if(!m2){ m2=true; root.querySelector("#t2").classList.add("ok"); } }
+    else if(intent.checked){ st.className="statusline down"; st.innerHTML="⛔ Crime — unauthorized access carried out knowingly. This is the classic ‘hacking’ offence."; if(!m1){ m1=true; root.querySelector("#t1").classList.add("ok"); } }
+    else { st.className="statusline warn"; st.innerHTML="⚠️ Usually not a crime — access without intent (a genuine accident) generally isn’t criminal, though it may still breach policy."; }
+    if(m1&&m2) api.complete();
+  }
+  [auth,intent].forEach(x=>x.addEventListener("change",update)); update();
+}
+function a_lawful(root, api){
+  const L="Legal", I="Illegal";
+  choiceQuiz(root,{ options:[L,I], shuffle:true,
+    hint:"The deciding factor is almost always permission. No authorization → usually illegal.",
+    items:[
+      {q:"Penetration testing a client’s network with a signed authorization letter.", a:L, why:"Written permission makes it authorized, lawful security work."},
+      {q:"Port-scanning a company’s servers out of curiosity, without asking.", a:I, why:"No permission means unauthorized access — illegal in most places."},
+      {q:"Studying malware inside an isolated lab on hardware you own.", a:L, why:"On your own isolated systems, for research, this is lawful."},
+      {q:"Logging into a database with a password you found on a sticky note, ‘just to look’.", a:I, why:"Access you were never granted is unauthorized — illegal, even if you ‘only looked’."},
+      {q:"Reporting a bug you noticed while using a website normally.", a:L, why:"Observing a flaw through ordinary use and reporting it responsibly is fine."},
+      {q:"Trying leaked passwords on other people’s accounts to ‘test’ them.", a:I, why:"Accessing others’ accounts without consent is illegal, whatever the excuse."}
+    ], onDone:api.complete });
+}
+
+/* ============ LESSON 2 ============ */
+function a_pii(root, api){
+  assignGame(root,{
+    intro:"Classify each data item by how sensitive it is.",
+    options:[{id:"s",label:"Sensitive"},{id:"p",label:"Personal (PII)"},{id:"n",label:"Not personal"}],
+    items:[
+      {label:"Medical history", correct:"s", why:"Health data is a special, sensitive category needing extra protection."},
+      {label:"Religious belief", correct:"s", why:"Religion is sensitive personal data."},
+      {label:"Fingerprint (biometric)", correct:"s", why:"Biometrics uniquely identify a person — sensitive."},
+      {label:"Full name", correct:"p", why:"Identifies a person — ordinary personal data (PII)."},
+      {label:"Email address", correct:"p", why:"Personal data that identifies an individual."},
+      {label:"Home address", correct:"p", why:"Personal data linked to an individual."},
+      {label:"Total number of visitors to a site (anonymous)", correct:"n", why:"Aggregated, anonymous — not about an identifiable person."},
+      {label:"Today’s weather", correct:"n", why:"Not about any person at all."}
+    ], checkLabel:"Classify the data", doneMsg:"✅ Correct. Sensitive data (health, religion, biometrics) needs the strongest protection; anonymous data isn’t personal at all."
+  }, api.complete);
+}
+function a_minimize(root, api){
+  const fields=[
+    {id:"name", nm:"Name", need:true}, {id:"addr", nm:"Delivery address", need:true}, {id:"phone", nm:"Phone number", need:true},
+    {id:"email", nm:"Email (for the receipt)", need:"ok"},
+    {id:"dob", nm:"Date of birth", need:false}, {id:"cnic", nm:"National ID / CNIC", need:false},
+    {id:"maiden", nm:"Mother’s maiden name", need:false}, {id:"marital", nm:"Marital status", need:false}
+  ];
+  const on={name:false,addr:false,phone:false,email:false,dob:false,cnic:false,maiden:false,marital:false};
+  root.innerHTML=`<p class="small muted"><b>Data minimization:</b> collect only what you actually need. Design the sign-up form for a <b>pizza delivery</b> app — tick only the fields that are genuinely necessary.</p>
+    <div class="ff" id="ff"></div>
+    <div class="row"><button class="btn btn-sm" id="check">Check my form</button></div>
+    <div id="mfb" aria-live="polite"></div>
+    <div class="tasks"><div class="tk" id="t1"><span class="tick">✓</span>Collect every necessary field and no unnecessary ones</div></div>`;
+  const ff=root.querySelector("#ff"), fb=root.querySelector("#mfb");
+  fields.forEach(f=>{ const el=blk(`<div class="frow" data-id="${f.id}"><span class="chk">✓</span><span class="fn">${f.nm}</span></div>`).firstElementChild;
+    el.addEventListener("click",()=>{ on[f.id]=!on[f.id]; el.classList.toggle("on",on[f.id]); el.classList.remove("flag-ok","flag-bad"); el.querySelector(".tagn")&&el.querySelector(".tagn").remove(); }); ff.appendChild(el); });
+  root.querySelector("#check").addEventListener("click",()=>{
+    let ok=true; fields.forEach(f=>{ const el=ff.querySelector(`[data-id="${f.id}"]`); el.classList.remove("flag-ok","flag-bad"); if(el.querySelector(".tagn")) el.querySelector(".tagn").remove();
+      let verdict="";
+      if(f.need===true){ if(on[f.id]){ el.classList.add("flag-ok"); } else { ok=false; el.classList.add("flag-bad"); verdict="needed — collect this"; } }
+      else if(f.need===false){ if(on[f.id]){ ok=false; el.classList.add("flag-bad"); verdict="not needed — don’t collect"; } else { el.classList.add("flag-ok"); } }
+      else { /* email optional, either is fine */ el.classList.add("flag-ok"); }
+      if(verdict){ const t=blk(`<span class="tagn" style="color:var(--bad)">${verdict}</span>`).firstElementChild; el.appendChild(t); }
+    });
+    if(ok){ fb.innerHTML=`<div class="fb good">✅ Well minimized! A pizza app needs a name, an address and a phone number (and maybe an email). Asking for a CNIC or mother’s maiden name is excessive — more data means more risk if you’re breached.</div>`; root.querySelector("#t1").classList.add("ok"); api.complete(); }
+    else fb.innerHTML=`<div class="fb bad">Not quite (see the red rows). Collect only what delivering a pizza truly requires.</div>`;
+  });
+}
+function a_principles(root, api){
+  assignGame(root,{
+    intro:"Each company broke one core data-protection principle. Which one?",
+    options:[{id:"pl",label:"Purpose limitation"},{id:"dm",label:"Data minimization"},{id:"sl",label:"Storage limitation"},{id:"ac",label:"Accuracy"},{id:"se",label:"Security"}],
+    items:[
+      {label:"Collected emails to send receipts, then sold them to advertisers", correct:"pl", why:"Data was used for a new purpose it wasn’t collected for — breaking purpose limitation."},
+      {label:"Demanded a customer’s CNIC just to sign up for a newsletter", correct:"dm", why:"Collecting far more than needed breaks data minimization."},
+      {label:"Kept ex-customers’ records for 20 years with no reason", correct:"sl", why:"Holding data longer than necessary breaks storage limitation."},
+      {label:"Ignored repeated requests to fix a customer’s wrong address", correct:"ac", why:"Failing to keep data correct breaks the accuracy principle."},
+      {label:"Stored all passwords in plain text and got breached", correct:"se", why:"Failing to protect data breaks the security (integrity & confidentiality) principle."}
+    ], checkLabel:"Judge the cases", doneMsg:"✅ Correct. These principles (from laws like GDPR) are the backbone of data protection."
+  }, api.complete);
+}
+function a_rights(root, api){
+  assignGame(root,{
+    intro:"Match each person’s request to the data-subject right they’re exercising.",
+    options:[{id:"ac",label:"Access"},{id:"re",label:"Rectification"},{id:"er",label:"Erasure"},{id:"po",label:"Portability"},{id:"ob",label:"Object"}],
+    items:[
+      {label:"“Send me a copy of all the data you hold about me.”", correct:"ac", why:"The right of access — to see your own data."},
+      {label:"“My name is spelled wrong — please correct it.”", correct:"re", why:"The right to rectification of inaccurate data."},
+      {label:"“Delete my account and everything you have on me.”", correct:"er", why:"The right to erasure (‘right to be forgotten’)."},
+      {label:"“Give me my data in a format I can move to a competitor.”", correct:"po", why:"The right to data portability."},
+      {label:"“Stop using my data for marketing.”", correct:"ob", why:"The right to object to certain processing."}
+    ], checkLabel:"Handle the requests", doneMsg:"✅ Correct. These rights put individuals in control of their own data."
+  }, api.complete);
+}
+function a_consent(root, api){
+  const V="Valid consent", N="NOT valid consent";
+  choiceQuiz(root,{ options:[V,N], shuffle:true,
+    hint:"Valid consent is freely given, specific, informed and a clear opt-in. Pre-ticked, bundled or forced consent doesn’t count.",
+    items:[
+      {q:"A box the user must actively tick, with a clear explanation of what they’re agreeing to.", a:V, why:"A clear, informed, affirmative opt-in — valid."},
+      {q:"A box that is already ticked by default when the page loads.", a:N, why:"Pre-ticked boxes aren’t a real choice — not valid consent."},
+      {q:"“Agree to everything or you can’t use the app at all” for unrelated data uses.", a:N, why:"Consent bundled or forced isn’t freely given — not valid."},
+      {q:"Separate, granular opt-ins the user can withdraw at any time.", a:V, why:"Specific, freely given and revocable — valid consent."},
+      {q:"Consent buried in 40 pages of legalese no one reads.", a:N, why:"Consent that isn’t genuinely informed doesn’t count."}
+    ], onDone:api.complete });
+}
+
+/* ============ LESSON 3 ============ */
+function a_quadrant(root, api){
+  const scen=[
+    {q:"A penetration tester hacking a system with written permission.", le:"legal", et:"ethical"},
+    {q:"Legally selling users’ data in ways they never expected or wanted.", le:"legal", et:"unethical"},
+    {q:"A whistleblower leaking proof of serious, hidden public harm.", le:"illegal", et:"ethical"},
+    {q:"Stealing money from strangers using malware.", le:"illegal", et:"unethical"}
+  ];
+  let idx=0;
+  root.innerHTML=`<p class="small muted">Legal and ethical are <b>not</b> the same thing. Place each action in the right box of the legal × ethical grid.</p>
+    <div class="qgrid">
+      <div class="qlabel"></div><div class="qlabel">⚖️ Illegal</div><div class="qlabel">⚖️ Legal</div>
+      <div class="qlabel vert">🫶 Ethical</div><button class="qcell q-ie" data-le="illegal" data-et="ethical">Illegal<br>& Ethical</button><button class="qcell q-le" data-le="legal" data-et="ethical">Legal<br>& Ethical</button>
+      <div class="qlabel vert">😠 Unethical</div><button class="qcell q-iu" data-le="illegal" data-et="unethical">Illegal<br>& Unethical</button><button class="qcell q-lu" data-le="legal" data-et="unethical">Legal<br>& Unethical</button>
+    </div>
+    <div class="cq-q" id="prompt"></div><div id="qfb" aria-live="polite"></div>`;
+  const prompt=root.querySelector("#prompt"), fb=root.querySelector("#qfb");
+  function show(){ if(idx>=scen.length){ fb.innerHTML=`<div class="fb good">🎯 All placed. Some legal things are unethical, and a few illegal acts are widely seen as ethical — a security professional has to weigh both.</div>`; prompt.textContent=""; api.complete(); return; }
+    root.querySelectorAll(".qcell").forEach(c=>c.classList.remove("pick")); prompt.innerHTML=`<span class="pill">${idx+1}/${scen.length}</span> ${scen[idx].q}`; fb.innerHTML=""; }
+  root.querySelectorAll(".qcell").forEach(c=>c.addEventListener("click",()=>{ if(idx>=scen.length) return; const s=scen[idx];
+    if(c.dataset.le===s.le && c.dataset.et===s.et){ c.classList.add("pick"); fb.innerHTML=`<div class="fb good">Correct — ${s.le} and ${s.et}.<div class="act-next"><button class="btn btn-sm">${idx+1<scen.length?"Next":"Finish"}</button></div></div>`;
+      fb.querySelector("button").addEventListener("click",()=>{ idx++; show(); });
+    } else { shake(c); fb.innerHTML=`<div class="fb bad">Not that box. Ask separately: is it against the law? Is it morally right?</div>`; }
+  }));
+  show();
+}
+function a_disclosure(root, api){
+  const steps=[
+    {q:"You discover a critical security flaw in a bank’s app. What’s your first move?", opts:[
+      {label:"Report it privately to the bank (or their security contact)", ok:true, why:"Responsible disclosure starts by quietly telling the people who can fix it."},
+      {label:"Post full details publicly straight away", ok:false, why:"Public details before a fix let criminals exploit it — reckless."},
+      {label:"Sell it to the highest bidder", ok:false, why:"Selling an exploit to be used against people is clearly unethical and illegal."}]},
+    {q:"The bank confirms it and asks for 90 days to fix it. You…", opts:[
+      {label:"Agree to a reasonable coordinated timeline", ok:true, why:"Giving them fair time to patch protects users."},
+      {label:"Publish it tomorrow anyway, to get credit faster", ok:false, why:"Rushing disclosure before the fix endangers users for your ego."},
+      {label:"Threaten to leak it unless they pay you", ok:false, why:"That’s extortion, not disclosure."}]},
+    {q:"They ship the fix within the agreed time. Now you…", opts:[
+      {label:"Publish a responsible write-up after the patch is out", ok:true, why:"Coordinated disclosure after the fix helps everyone learn, safely."},
+      {label:"Never mention it to anyone, ever", ok:false, why:"Sharing lessons (after the fix) improves security for all — silence isn’t required."},
+      {label:"Release a ready-to-run attack tool for the old flaw", ok:false, why:"Arming attackers against those who haven’t updated is harmful."}]}
+  ];
+  let i=0;
+  root.innerHTML=`<p class="small muted">You’re a researcher who just found a serious vulnerability. Choose the <b>responsible</b> action at each stage.</p>
+    <div class="dprog" id="prog"></div><div id="step"></div><div id="dfb" aria-live="polite"></div>`;
+  function prog(){ root.querySelector("#prog").innerHTML=steps.map((_,k)=>`<i class="${k<i?"ok":k===i?"on":""}"></i>`).join(""); }
+  function show(){ prog(); if(i>=steps.length){ root.querySelector("#step").innerHTML=""; root.querySelector("#dfb").innerHTML=`<div class="fb good">✅ That’s the responsible-disclosure path: report privately → give time to fix → disclose coordinatedly after the patch. You protected users at every step.</div>`; api.complete(); return; }
+    const s=steps[i]; root.querySelector("#step").innerHTML=`<div class="dstep"><div class="q">Stage ${i+1} of ${steps.length}: ${s.q}</div><div class="dopts">${shuffle(s.opts.map((o,k)=>({o,k}))).map(({o,k})=>`<button class="dopt" data-k="${k}">${o.label}</button>`).join("")}</div></div>`;
+    const fb=root.querySelector("#dfb"); fb.innerHTML="";
+    root.querySelectorAll(".dopt").forEach(b=>b.addEventListener("click",()=>{ const o=s.opts[+b.dataset.k];
+      if(o.ok){ root.querySelectorAll(".dopt").forEach(x=>x.disabled=true); b.classList.add("right"); fb.innerHTML=`<div class="fb good">${o.why}<div class="act-next"><button class="btn btn-sm">${i+1<steps.length?"Continue":"Finish"}</button></div></div>`;
+        fb.querySelector("button").addEventListener("click",()=>{ i++; show(); });
+      } else { b.classList.add("wrong"); b.disabled=true; shake(b); fb.innerHTML=`<div class="fb bad">${o.why} Choose the responsible option.</div>`; }
+    }));
+  }
+  show();
+}
+function a_codeEthics(root, api){
+  assignGame(root,{
+    intro:"Security codes of ethics share a few core duties. Match each situation to the duty in play.",
+    options:[{id:"pub",label:"Protect the public"},{id:"con",label:"Confidentiality"},{id:"comp",label:"Competence"},{id:"coi",label:"Avoid conflicts of interest"},{id:"hon",label:"Honesty / integrity"}],
+    items:[
+      {label:"Your firm is quietly hiding a breach that puts customers at risk", correct:"pub", why:"The duty to protect society comes first — the harm must be addressed."},
+      {label:"Keeping a former client’s secrets secret even after the contract ends", correct:"con", why:"Confidentiality continues beyond the engagement."},
+      {label:"Declining a job that needs skills you honestly don’t have", correct:"comp", why:"Only provide services you’re competent to deliver."},
+      {label:"Refusing gifts from a vendor whose product you’re evaluating", correct:"coi", why:"Avoid situations that could bias your judgement."},
+      {label:"Not exaggerating your certifications on your CV", correct:"hon", why:"Honesty and integrity in all professional dealings."}
+    ], checkLabel:"Match the duties", doneMsg:"✅ Correct. These duties — public safety, confidentiality, competence, no conflicts, honesty — anchor professional ethics."
+  }, api.complete);
+}
+function a_dilemmas(root, api){
+  choiceQuiz(root,{
+    hint:"Ask: who could be harmed, and what would a responsible professional do — not just what you’re allowed to do.",
+    items:[
+      {q:"Your manager tells you to hide a data breach from the customers it affected. You…", a:"Refuse, and push for the affected people to be told", opts:["Refuse, and push for the affected people to be told","Hide it — the boss said so","Quietly tell a few friends only"], why:"Protecting the public and honesty outweigh an unlawful or unethical order."},
+      {q:"A friend asks you to use your admin access to read their partner’s private messages. You…", a:"Decline — that’s an abuse of your access and a privacy violation", opts:["Decline — that’s an abuse of your access and a privacy violation","Do it, just this once","Do it but don’t tell anyone"], why:"Access granted for your job must never be misused for personal reasons."},
+      {q:"A company offers you money to stay quiet about a flaw you found, instead of it being fixed. You…", a:"Refuse and disclose responsibly so users are protected", opts:["Refuse and disclose responsibly so users are protected","Take the money and keep quiet","Threaten to leak it for more"], why:"Taking hush money leaves users exposed — the responsible path is a proper fix and disclosure."},
+      {q:"You’re asked to monitor all employees’ emails. The ethical approach is to do it only…", a:"With a clear policy, transparency, and a legitimate, proportionate purpose", opts:["With a clear policy, transparency, and a legitimate, proportionate purpose","Secretly, reading everything","Never, under any circumstance"], why:"Monitoring can be legitimate, but only when transparent, proportionate and policy-based — not secret surveillance."}
+    ], onDone:api.complete });
+}
+function a_duties(root, api){
+  choiceQuiz(root,{
+    hint:"When duties clash, the safety and rights of the public and of individuals usually come first — and ‘I could, so I did’ is never a justification.",
+    items:[
+      {q:"The guiding idea ‘just because you <i>can</i> access it doesn’t mean you <i>should</i>’ is mainly about…", a:"Respecting privacy and using your powers responsibly", opts:["Respecting privacy and using your powers responsibly","Saving disk space","Making systems faster","Avoiding paperwork"], why:"Capability is not permission; restraint and respect for others define a professional."},
+      {q:"A security professional’s duties to employer, to the law and to the public can conflict. In general, the top priority is…", a:"The safety and rights of the public and affected individuals", opts:["The safety and rights of the public and affected individuals","Whatever the employer wants","Whatever is cheapest","Personal reputation"], why:"Professional codes consistently place public welfare above employer or self-interest."},
+      {q:"Why do security practitioners need ethics on top of technical skill?", a:"Their access and knowledge could easily harm people, so trust must be earned and kept", opts:["Their access and knowledge could easily harm people, so trust must be earned and kept","Ethics make code run faster","It’s only for managers","So they can ignore the law"], why:"Great power over data and systems demands great responsibility — ethics is what makes the profession trustworthy."}
+    ], onDone:api.complete });
+}
+
+/* ============ modules ============ */
+const MODULES=[
+{ title:"Types of Cybercrime", short:"Cybercrime",
+  blurb:"What the law treats as a crime, the main categories, and why it’s so hard to prosecute.",
+  takeaways:[
+    "Cybercrime splits into the computer as the target (hacking, DoS, malware) and the computer as a tool (fraud, harassment, piracy).",
+    "Main categories include unauthorized access, fraud, identity theft, IP infringement and cyberstalking.",
+    "The same act can be lawful or criminal depending on authorization and intent.",
+    "Cross-border crimes are hard to prosecute because of differing laws, jurisdiction, evidence and extradition."
+  ],
+  steps:[
+    { title:"Target or tool?",
+      concept:`<p><b>Cybercrime</b> is crime that involves a computer. It falls into two broad kinds:</p>
+        <div class="two"><div class="box"><h4>🎯 Computer as target</h4>The system itself is attacked — hacking, denial of service, spreading malware.</div>
+        <div class="box"><h4>🛠️ Computer as tool</h4>An old crime done <i>through</i> a computer — fraud, harassment, piracy.</div></div>`,
+      key:"Is the computer the <b>victim</b>, or the <b>instrument</b>? That’s the first distinction.",
+      task:"For each case, decide whether the computer is the target or the tool.",
+      hints:["If the attack damages or breaks into a system, the computer is the target.","If it’s fraud, theft or harassment carried out online, the computer is the tool."],
+      activity:a_targetTool },
+    { title:"The main categories",
+      concept:`<p>Laws name specific offences. The ones you’ll meet most often:</p>
+        <div class="defn">
+          <div class="d"><b>Unauthorized access</b> — ‘hacking’ into systems you have no right to use.</div>
+          <div class="d"><b>Fraud</b> — deception for gain (scams, fake invoices, phishing-for-money).</div>
+          <div class="d"><b>Identity theft</b> — impersonating a real person using their details.</div>
+          <div class="d"><b>IP infringement</b> — piracy of software, films, music.</div>
+          <div class="d"><b>Cyberstalking / harassment</b> — persistent online threats or tracking.</div>
+        </div>`,
+      key:"Name the offence correctly and the right law follows.",
+      task:"Match each case file to its cybercrime category.",
+      hints:["Breaking in → unauthorized access; deceiving for money → fraud.","Using someone’s identity → identity theft; copying works → IP infringement."],
+      activity:a_crimeMatch },
+    { title:"Why it’s hard to catch",
+      concept:`<p>A single attack can cross several countries: the attacker in one, the servers in another, the victim in a third. That makes cybercrime uniquely hard to investigate and prosecute — <b>jurisdiction</b>, differing laws, scattered evidence and extradition all get in the way.</p>`,
+      key:"Cybercrime ignores borders; the law doesn’t — hence the difficulty.",
+      task:"Click each party in the attack to reveal why it complicates prosecution.",
+      hints:["Reveal all three nodes.","Then answer what makes cross-border cases so hard."],
+      activity:a_jurisdiction },
+    { title:"What turns an act into a crime",
+      concept:`<p>The <b>same technical action</b> can be a felony or a day job. Two factors decide:</p>
+        <div class="two"><div class="box"><h4>Authorization</h4>Did you have permission? A hired penetration tester is authorized; an intruder is not.</div>
+        <div class="box"><h4>Intent</h4>Did you act knowingly? A deliberate break-in differs from a genuine accident.</div></div>`,
+      key:"Authorization and intent are what separate security work from crime.",
+      task:"Toggle authorization and intent to see when the same access is a crime and when it’s legal.",
+      hints:["With intent but no authorization → crime.","Add authorization and the same act becomes lawful testing."],
+      activity:a_elements },
+    { title:"Legal or illegal?",
+      concept:`<p>Security work lives close to the line. The deciding factor is almost always <b>permission</b>: acting on systems you’re authorized to touch is lawful; acting on others’ without consent generally isn’t — however good your intentions.</p>`,
+      key:"No permission, no lawful access — ‘I was only testing’ is not a defence.",
+      task:"Decide whether each activity is legal or illegal.",
+      hints:["Written authorization or your own systems → legal.","Touching others’ systems or accounts without consent → illegal."],
+      activity:a_lawful }
+  ]
+},
+{ title:"Privacy and Data Protection", short:"Privacy",
+  blurb:"What personal data is, the principles that protect it, and the rights people have over it.",
+  takeaways:[
+    "Personal data (PII) identifies a person; sensitive data (health, religion, biometrics) needs extra protection; anonymous data isn’t personal.",
+    "Data minimization means collecting only what you actually need.",
+    "Core principles: purpose limitation, minimization, storage limitation, accuracy and security.",
+    "Individuals have rights: access, rectification, erasure, portability and to object; and consent must be freely given, specific and informed."
+  ],
+  steps:[
+    { title:"What counts as personal data",
+      concept:`<p><b>Privacy</b> is a person’s right to control information about themselves. The law protects <b>personal data (PII)</b> — anything identifying an individual — and gives special protection to <b>sensitive</b> categories.</p>
+        <div class="defn">
+          <div class="d"><b>Sensitive</b> — health, religion, biometrics, political views: strongest protection.</div>
+          <div class="d"><b>Personal (PII)</b> — name, email, address: identifies a person.</div>
+          <div class="d"><b>Not personal</b> — anonymous or aggregate data: no one is identifiable.</div>
+        </div>`,
+      key:"Sensitive > ordinary PII > anonymous. The more identifying and sensitive, the more care.",
+      task:"Classify each data item by sensitivity.",
+      hints:["Health, religion and biometrics are sensitive.","Truly anonymous or aggregate data isn’t personal at all."],
+      activity:a_pii },
+    { title:"Collect only what you need",
+      concept:`<p>A key privacy principle is <b>data minimization</b>: collect only the data you genuinely need for the task. Every extra field is extra risk — more to protect, more to leak, more to misuse.</p>`,
+      key:"The safest data is the data you never collected.",
+      task:"Design a pizza-delivery sign-up form that collects only the necessary fields.",
+      hints:["Delivering a pizza needs a name, an address and a phone number.","A CNIC or mother’s maiden name is not needed — leave it off."],
+      activity:a_minimize },
+    { title:"The protection principles",
+      concept:`<p>Data-protection laws (like the GDPR) rest on a handful of principles:</p>
+        <div class="defn">
+          <div class="d"><b>Purpose limitation</b> — use data only for the purpose it was collected.</div>
+          <div class="d"><b>Data minimization</b> — collect only what’s needed.</div>
+          <div class="d"><b>Storage limitation</b> — keep it only as long as needed.</div>
+          <div class="d"><b>Accuracy</b> — keep it correct and up to date.</div>
+          <div class="d"><b>Security</b> — protect it from loss and misuse.</div>
+        </div>`,
+      key:"Right purpose, least data, limited time, kept accurate, kept safe.",
+      task:"Identify which principle each company broke.",
+      hints:["Reusing data for ads → purpose limitation.","Over-collecting → minimization; keeping forever → storage limitation."],
+      activity:a_principles },
+    { title:"The rights of the individual",
+      concept:`<p>Privacy law gives people <b>rights</b> over their own data, which organisations must honour:</p>
+        <div class="defn">
+          <div class="d"><b>Access</b> — see what’s held about you.</div>
+          <div class="d"><b>Rectification</b> — correct mistakes.</div>
+          <div class="d"><b>Erasure</b> — have it deleted (‘right to be forgotten’).</div>
+          <div class="d"><b>Portability</b> — take it to another service.</div>
+          <div class="d"><b>Object</b> — stop certain uses, like marketing.</div>
+        </div>`,
+      key:"Access, rectify, erase, port, object — individuals stay in control.",
+      task:"Match each request to the right being exercised.",
+      hints:["‘Show me my data’ → access; ‘fix it’ → rectification.","‘Delete it’ → erasure; ‘move it’ → portability; ‘stop’ → object."],
+      activity:a_rights },
+    { title:"What makes consent valid",
+      concept:`<p>Much data use relies on <b>consent</b> — but only <b>valid</b> consent counts. It must be <b>freely given, specific, informed and unambiguous</b> (a clear opt-in). Pre-ticked boxes, bundled ‘agree to everything’, or forced consent don’t qualify.</p>`,
+      key:"Real consent is a free, informed, specific, clear ‘yes’ you can take back.",
+      task:"Decide whether each case is valid consent or not.",
+      hints:["Active opt-in, clearly explained → valid.","Pre-ticked, bundled, forced or hidden → not valid."],
+      activity:a_consent }
+  ]
+},
+{ title:"Ethical Issues in Security", short:"Ethics",
+  blurb:"Legal isn’t the same as right. The duties, dilemmas and disclosure choices a practitioner faces.",
+  takeaways:[
+    "Legal and ethical are different axes; an action can be legal-but-unethical or (rarely) illegal-but-ethical.",
+    "Responsible disclosure: report privately, allow time to fix, then disclose in a coordinated way.",
+    "Professional codes share duties: protect the public, keep confidentiality, stay competent, avoid conflicts, act honestly.",
+    "‘Just because you can doesn’t mean you should’ — public welfare generally outranks employer and self-interest."
+  ],
+  steps:[
+    { title:"Legal vs ethical",
+      concept:`<p>Following the law is the floor, not the ceiling. Some perfectly <b>legal</b> actions are <b>unethical</b> (quietly exploiting users’ data), and a few <b>illegal</b> acts are widely seen as <b>ethical</b> (a whistleblower exposing serious harm). A professional has to weigh both.</p>`,
+      key:"Legal ≠ ethical. Always ask both questions.",
+      task:"Place each action in the right box of the legal × ethical grid.",
+      hints:["Ask separately: is it against the law? Is it morally right?","Whistleblowing can be illegal yet ethical; exploiting data can be legal yet unethical."],
+      activity:a_quadrant },
+    { title:"Responsible disclosure",
+      concept:`<p>When you find a vulnerability, how you handle it is an ethical choice. <b>Responsible (coordinated) disclosure</b> means: tell the owner privately, give them reasonable time to fix it, and only then publish — so users are protected, not exposed.</p>`,
+      key:"Report privately → allow time to fix → disclose coordinatedly.",
+      task:"Walk the responsible-disclosure path, choosing the right action at each stage.",
+      hints:["Start by telling the people who can fix it, privately.","Give fair time to patch, then disclose responsibly after the fix."],
+      activity:a_disclosure },
+    { title:"Professional duties",
+      concept:`<p>Security bodies ((ISC)², ACM and others) publish <b>codes of ethics</b>. They share the same core duties:</p>
+        <div class="defn">
+          <div class="d"><b>Protect the public</b> — safety and welfare come first.</div>
+          <div class="d"><b>Confidentiality</b> — guard what you’re trusted with.</div>
+          <div class="d"><b>Competence</b> — only do work you can do well.</div>
+          <div class="d"><b>No conflicts of interest</b> — stay impartial.</div>
+          <div class="d"><b>Honesty / integrity</b> — be truthful in all dealings.</div>
+        </div>`,
+      key:"Public first, keep secrets, stay competent, stay impartial, stay honest.",
+      task:"Match each situation to the professional duty in play.",
+      hints:["Hidden harm to customers → protect the public.","Secrets, skills, gifts and CVs map to confidentiality, competence, conflicts and honesty."],
+      activity:a_codeEthics },
+    { title:"Facing the dilemmas",
+      concept:`<p>Ethics gets real under pressure: a boss asking you to hide a breach, a friend asking you to snoop, a company offering hush money. The ethical answer often costs you something — which is exactly why it takes character, not just knowledge.</p>`,
+      key:"Do the right thing even when it’s the harder thing.",
+      task:"Choose the ethical course of action in each dilemma.",
+      hints:["Ask who could be harmed, and what a responsible professional would do.","‘My boss told me to’ and ‘just this once’ are not justifications."],
+      activity:a_dilemmas },
+    { title:"The weight of the role",
+      concept:`<p>Security professionals hold real power over people’s data and systems. The defining principle is simple: <b>just because you can access something doesn’t mean you should</b>. When duties to employer, law and public collide, the welfare of the public and of individuals comes first — and that trust is what makes the whole profession work.</p>`,
+      key:"Capability is not permission; public welfare outranks employer and self-interest.",
+      task:"Answer these capstone questions on a practitioner’s duties.",
+      hints:["Capability is never a justification by itself.","Codes of ethics put the public above the employer and above yourself."],
+      activity:a_duties }
+  ]
+}
+];
+
+/* ---------- quiz ---------- */
+const QUIZ=[
+  {topic:"Lesson 1", q:"Hacking into a hospital’s systems is an example of…", o:["The computer as the target","The computer as a tool","Data minimization","Responsible disclosure"], a:0, ex:"The system itself is attacked, so the computer is the target."},
+  {topic:"Lesson 1", q:"Running an online romance scam is an example of…", o:["The computer as a tool","The computer as the target","A denial-of-service attack","IP infringement"], a:0, ex:"Fraud committed through a computer — the computer is the tool."},
+  {topic:"Lesson 1", q:"Opening bank accounts using someone else’s stolen details is…", o:["Identity theft","Unauthorized access","Cyberstalking","Piracy"], a:0, ex:"Impersonating a real person is identity theft."},
+  {topic:"Lesson 1", q:"What most often turns ‘security testing’ into a crime?", o:["Acting without authorization","Using a laptop","Working at night","Writing a report"], a:0, ex:"Authorization is the dividing line; unauthorized access is the offence."},
+  {topic:"Lesson 1", q:"Cross-border cybercrime is hard to prosecute mainly because…", o:["Different laws, jurisdictions and scattered evidence","Computers are too fast","No one ever reports it","Police don’t use computers"], a:0, ex:"Jurisdiction, differing laws, evidence and extradition all complicate it."},
+  {topic:"Lesson 2", q:"Which of these is the most sensitive category of personal data?", o:["Medical history","Full name","Email address","Home address"], a:0, ex:"Health data is a special, sensitive category needing extra protection."},
+  {topic:"Lesson 2", q:"Collecting only the data you actually need is called…", o:["Data minimization","Purpose limitation","Portability","Encryption"], a:0, ex:"Data minimization reduces risk by not over-collecting."},
+  {topic:"Lesson 2", q:"Collecting email for receipts and then selling it to advertisers breaks…", o:["Purpose limitation","Accuracy","Portability","Availability"], a:0, ex:"Data was used for a new, unrelated purpose — breaking purpose limitation."},
+  {topic:"Lesson 2", q:"‘Please delete all my data’ is exercising the right to…", o:["Erasure","Access","Rectification","Object"], a:0, ex:"The right to erasure, or ‘right to be forgotten’."},
+  {topic:"Lesson 2", q:"Which is NOT valid consent?", o:["A box that is already pre-ticked","A clear, active opt-in","Specific, informed agreement","Consent you can withdraw"], a:0, ex:"Pre-ticked boxes aren’t a genuine choice — not valid consent."},
+  {topic:"Lesson 3", q:"Legally selling users’ data in ways they never wanted is best described as…", o:["Legal but unethical","Illegal but ethical","Illegal and unethical","Legal and ethical"], a:0, ex:"It may be lawful yet still ethically wrong — legal ≠ ethical."},
+  {topic:"Lesson 3", q:"Responsible (coordinated) disclosure means…", o:["Report privately, allow time to fix, then disclose","Publish full details immediately","Sell the exploit","Never tell anyone"], a:0, ex:"You protect users by giving the owner time to patch before going public."},
+  {topic:"Lesson 3", q:"‘Just because you can access it doesn’t mean you should’ is mainly about…", o:["Respecting privacy and using access responsibly","Saving disk space","Faster systems","Avoiding paperwork"], a:0, ex:"Capability is not permission; restraint defines a professional."},
+  {topic:"Lesson 3", q:"When a security professional’s duties conflict, the top priority is usually…", o:["The safety and rights of the public","Whatever the employer wants","The cheapest option","Personal reputation"], a:0, ex:"Professional codes place public welfare above employer or self-interest."},
+  {topic:"Lesson 3", q:"If your manager tells you to hide a breach from affected customers, you should…", o:["Refuse and push for them to be informed","Obey without question","Tell only a few friends","Delete the evidence"], a:0, ex:"Protecting the public and honesty outweigh an unethical order."}
+];
+function gradeOf(sc){ if(sc>=13) return {g:"A",t:"Excellent"}; if(sc>=11) return {g:"B",t:"Very good"}; if(sc>=9) return {g:"C",t:"Pass"}; return {g:"–",t:"Needs revision"}; }
+
+/* ---------- shell ---------- */
+function renderTop(){
+  if(mode==="welcome"||!S.name){ topbar.innerHTML=`<div class="topbar-in"><div class="brand"><span class="brand-ic">⚖️</span><span class="brand-t">Activity Lab<small>Cybercrime, Privacy &amp; Ethics</small></span></div></div>`; return; }
+  const n=doneCount(), inQuiz=mode==="quiz";
+  const initials=S.name.trim().split(/\s+/).map(w=>w[0]).slice(0,2).join("").toUpperCase();
+  topbar.innerHTML=`<div class="topbar-in"><button class="brand" id="tbHome" ${inQuiz?"disabled":""} aria-label="Map"><span class="brand-ic">⚖️</span><span class="brand-t">Activity Lab<small>Cybercrime, Privacy &amp; Ethics</small></span></button>
+    <div class="tb-right"><span class="tb-steps"><b>${n}</b>/${TOTAL} done</span><div class="student"><b>${esc(S.name.split(" ")[0])}</b><small>${esc(S.roll)}</small></div>
+    ${inQuiz?`<span class="pill on">Quiz</span>`:`<button class="btn btn-quiet btn-sm" id="tbMap">Map</button>`}</div></div>`;
+  const home=document.getElementById("tbHome"), map=document.getElementById("tbMap");
+  if(home&&!inQuiz) home.addEventListener("click",()=>go(screenOverview));
+  if(map) map.addEventListener("click",()=>go(screenOverview));
+}
+function go(fn,...a){ fn(...a); renderTop(); try{ window.scrollTo(0,0); }catch(e){} }
+
+function screenWelcome(){
+  mode="welcome"; const has=!!S.name;
+  app.innerHTML=`<section class="screen stack">
+    <div class="bare"><div class="eyebrow">Interactive lab · beginner</div><h1>Cybercrime, Privacy &amp; Ethics</h1>
+      <p class="lead">The human, legal and moral frame around every technical control: what the law defines as cybercrime, what privacy means and how it is protected, and the ethics that bind a security practitioner.</p>
+      <ul class="facts"><li>3 lessons · 15 hands-on activities</li><li>Case triage, a jurisdiction map, a data-minimization form, a legal-vs-ethical grid and a disclosure path</li><li>Free hints at every step</li><li>Final quiz worth 15 marks</li></ul></div>
+    <div class="card" id="who"></div></section>`;
+  const who=document.getElementById("who");
+  if(has){ who.innerHTML=`<h3>Welcome back, ${esc(S.name.split(" ")[0])}</h3><p class="muted">Roll no. ${esc(S.roll)} · ${doneCount()}/${TOTAL} done${S.results.length?` · quiz ${S.results.length}×`:""}.</p>
+    <div class="row wrap"><button class="btn" id="cont">Continue</button><button class="btn btn-quiet" id="newst">Different student</button></div>`;
+    document.getElementById("cont").addEventListener("click",()=>go(screenOverview));
+    document.getElementById("newst").addEventListener("click",()=>{ S=fresh(); save(); go(screenWelcome); });
+  } else { who.innerHTML=`<h3>Before you begin</h3><p class="muted small">Your name and roll number appear on your result card.</p>
+    <div class="who-grid"><div class="field"><label for="nm">Full name</label><input class="input" id="nm" maxlength="60" autocomplete="name" placeholder="e.g. Hiba Imran"></div>
+    <div class="field"><label for="rl">Roll number</label><input class="input" id="rl" maxlength="30" autocomplete="off" placeholder="e.g. 23CS045"></div></div>
+    <div class="err" id="err" aria-live="polite"></div><button class="btn" id="startBtn" style="margin-top:4px">Start</button>`;
+    const nm=document.getElementById("nm"), rl=document.getElementById("rl"), err=document.getElementById("err");
+    function start(){ const n=nm.value.trim().replace(/\s+/g," "), r=rl.value.trim();
+      if(n.length<2){ err.textContent="Enter your full name."; nm.focus(); return; }
+      if(r.length<2){ err.textContent="Enter your roll number."; rl.focus(); return; }
+      if(!/^[A-Za-z0-9\-\/_. ]+$/.test(r)){ err.textContent="Letters, numbers, dashes, slashes and dots only."; rl.focus(); return; }
+      S=fresh(); S.name=n; S.roll=r; save(); go(screenOverview); }
+    document.getElementById("startBtn").addEventListener("click",start);
+    [nm,rl].forEach(x=>x.addEventListener("keydown",e=>{ if(e.key==="Enter") start(); })); nm.focus();
+  }
+}
+function modInfo(m){ const cnt=[0,1,2,3,4].filter(i=>S.done[m*5+i]).length; const unlocked=m===0||S.maxPos>=m*5-1; const started=S.maxPos>=m*5;
+  let target=m*5; for(let i=0;i<5;i++){ if(!S.done[m*5+i]){ target=m*5+i; break; } } if(target>S.maxPos+1) target=Math.max(m*5,Math.min(S.maxPos,m*5+4)); return {cnt,unlocked,started,target}; }
+function screenOverview(){
+  mode="map"; const quizOpen=S.maxPos>=14, res=S.results, best=res.length?Math.max(...res.map(r=>r.score)):null;
+  app.innerHTML=`<section class="screen stack">
+    <div class="bare"><div class="eyebrow">Overview</div><h2>What this is about</h2>
+      <p>Every firewall, password and encryption key sits inside a <b>human</b> frame — the law that says what’s a crime, the privacy rights that protect people’s data, and the ethics that decide what a professional <i>should</i> do, not just what they <i>can</i>. This is the part of security that technology alone can never settle.</p>
+      <p>You’ll reason through it hands-on: triage criminal cases, trace a crime across borders, design a privacy-respecting form, sort data rights, weigh legal against ethical, and walk a responsible-disclosure decision.</p></div>
+    <div class="card"><h3>By the end, you can…</h3><ul class="obj">
+      <li>Distinguish the computer as target vs tool, and name the main cybercrimes.</li>
+      <li>Explain what makes an act criminal, and why cross-border cases are hard.</li>
+      <li>Identify personal and sensitive data and apply data minimization.</li>
+      <li>Apply the data-protection principles and the rights of individuals.</li>
+      <li>Tell legal from ethical, and follow responsible disclosure.</li>
+      <li>Reason through real professional dilemmas and duties.</li></ul></div>
+    <div class="bare"><h3>Lessons</h3><div class="path" id="path"></div></div>
+    <div class="card"><h3>Marking</h3>
+      <table class="marks"><thead><tr><th>Part</th><th>Detail</th><th>Marks</th></tr></thead><tbody>
+        <tr><td>Activities</td><td>15 hands-on activities</td><td>Shown on your card</td></tr>
+        <tr><td>Final quiz</td><td>15 questions, 1 mark each</td><td>15 marks</td></tr>
+        <tr><td>Pass</td><td>9 / 15 · A 13–15 · B 11–12 · C 9–10</td><td>—</td></tr></tbody></table>
+      <p class="small muted" style="margin-top:8px">The quiz unlocks at the end of Lesson 3 — shuffled, no hints, answers lock on submit.</p></div></section>`;
+  const path=document.getElementById("path");
+  MODULES.forEach((mod,m)=>{ const info=modInfo(m); const label=!info.unlocked?"Locked":info.cnt===5?"Review":info.started?"Continue":"Start";
+    const c=blk(`<div class="pcard ${info.unlocked?"":"locked"}"><div class="pnum">${m+1}</div><div><div class="ptitle">${mod.title}</div><div class="pmeta">${mod.blurb} · ${info.cnt}/5 done</div></div>
+      <button class="btn ${info.cnt===5?"btn-ghost":""} btn-sm" ${info.unlocked?"":"disabled"}>${label}</button></div>`).firstElementChild;
+    c.querySelector("button").addEventListener("click",()=>go(screenStep,info.target)); path.appendChild(c); });
+  const q=blk(`<div class="pcard quiz ${quizOpen?"":"locked"}"><div class="pnum">★</div><div><div class="ptitle">Final quiz</div><div class="pmeta">15 questions · 1 mark each${res.length?` · best ${best}/15`:""}</div></div>
+    <button class="btn btn-sm" ${quizOpen?"":"disabled"}>${quizOpen?(res.length?"Retake":"Start"):"Locked"}</button></div>`).firstElementChild;
+  q.querySelector("button").addEventListener("click",()=>go(screenQuizIntro)); path.appendChild(q);
+}
+function screenStep(pos){
+  mode="step"; const m=Math.floor(pos/5), s=pos%5, mod=MODULES[m], st=mod.steps[s];
+  if(pos>S.maxPos){ S.maxPos=pos; save(); }
+  const done=!!S.done[pos]; const nextLabel=d=>d?(s<4?"Continue":"Finish lesson"):"Skip";
+  app.innerHTML=`<section class="screen stack">
+    <div class="bare"><div class="crumbs"><span class="pill">Lesson ${m+1}</span><span>${mod.short}</span><span>·</span><span>Step ${s+1} of 5</span></div>
+      <h2>${st.title}</h2><div class="rail" style="margin-top:10px"><i style="width:${(s+1)/5*100}%"></i></div></div>
+    <div class="bare">${st.concept}<div class="key">🔑 <b>Key idea:</b> ${st.key}</div></div>
+    <div class="actwrap ${done?"done":""}" id="act"><div class="act-top"><span class="act-label">Activity</span><span class="badge">✓ Completed</span></div>
+      <p class="task">${st.task}</p><div id="body"></div>
+      <div class="hintarea"><button class="btn btn-quiet btn-sm" id="hintBtn">💡 Hint</button><div id="hints"></div></div></div>
+    <div class="stepnav"><button class="btn btn-quiet btn-sm" id="back">◂ Back</button><div class="dots" id="dots" aria-hidden="true"></div>
+      <button class="btn btn-sm ${done?"":"btn-ghost"}" id="next">${nextLabel(done)} ▸</button></div></section>`;
+  const act=document.getElementById("act"), nextBtn=document.getElementById("next");
+  function dots(){ document.getElementById("dots").innerHTML=[0,1,2,3,4].map(i=>`<i class="${i===s?"on":""} ${S.done[m*5+i]?"ok":""}"></i>`).join(""); }
+  dots();
+  const api={ complete(){ if(!S.done[pos]){ S.done[pos]=true; save(); } act.classList.add("done"); nextBtn.classList.remove("btn-ghost"); nextBtn.textContent=nextLabel(true)+" ▸"; dots(); renderTop(); } };
+  let hi=0; const hb=document.getElementById("hintBtn"), hbox=document.getElementById("hints");
+  hb.addEventListener("click",()=>{ if(hi>=st.hints.length) return; hbox.appendChild(blk(`<div class="hintbox"><b>Hint ${hi+1}/${st.hints.length}:</b> ${st.hints[hi]}</div>`).firstElementChild); hi++; if(hi>=st.hints.length){ hb.disabled=true; hb.textContent="No more hints"; } });
+  try{ st.activity(document.getElementById("body"),api); }catch(e){ console.error(e); }
+  document.getElementById("back").addEventListener("click",()=>go(s>0?()=>screenStep(pos-1):screenOverview));
+  nextBtn.addEventListener("click",()=>go(s<4?()=>screenStep(pos+1):()=>screenModuleDone(m)));
+}
+function screenModuleDone(m){
+  mode="done"; const mod=MODULES[m], cnt=[0,1,2,3,4].filter(i=>S.done[m*5+i]).length;
+  app.innerHTML=`<section class="screen stack"><div class="bare done-head"><div class="check">✓</div><h2>Lesson ${m+1} complete</h2><p class="muted">${mod.title} · ${cnt} of 5 activities</p></div>
+    <div class="card"><h3>What you learned</h3><ul class="take">${mod.takeaways.map(t=>`<li>${t}</li>`).join("")}</ul></div>
+    ${cnt<5?`<p class="muted small center">You skipped ${5-cnt}. You can return any time from the map.</p>`:""}
+    <div class="row wrap center"><button class="btn btn-quiet btn-sm" id="toMap">Map</button><button class="btn btn-sm" id="nextMod">${m<2?`Start Lesson ${m+2}`:"Final quiz"} ▸</button></div></section>`;
+  document.getElementById("toMap").addEventListener("click",()=>go(screenOverview));
+  document.getElementById("nextMod").addEventListener("click",()=>go(m<2?()=>screenStep((m+1)*5):screenQuizIntro));
+}
+let Q=null;
+function screenQuizIntro(){ mode="map"; const n=doneCount();
+  app.innerHTML=`<section class="screen card"><div class="eyebrow">Final quiz</div><h2>Ready, ${esc(S.name.split(" ")[0])}?</h2>
+    <table class="marks" style="margin:12px 0"><tbody><tr><th>Questions</th><td>15, from all three lessons</td></tr><tr><th>Marks</th><td>1 each — 15 total</td></tr>
+      <tr><th>Pass</th><td>9 / 15</td></tr><tr><th>Rules</th><td>No hints · shuffled · answers lock on submit</td></tr>
+      <tr><th>Attempt</th><td>#${S.results.length+1}${S.results.length?` · first was ${S.results[0].score}/15`:""}</td></tr></tbody></table>
+    ${n<TOTAL?`<div class="fb">You’ve done ${n}/${TOTAL} activities. Finishing them first will help.</div>`:`<div class="fb good">All 15 activities done — well prepared.</div>`}
+    <div class="row wrap" style="margin-top:14px"><button class="btn btn-quiet btn-sm" id="qback">Map</button><button class="btn btn-sm" id="qgo">Start ▸</button></div></section>`;
+  document.getElementById("qback").addEventListener("click",()=>go(screenOverview));
+  document.getElementById("qgo").addEventListener("click",()=>{ Q={ qs:shuffle(QUIZ).map(q=>Object.assign({},q,{order:shuffle(q.o.map((_,i)=>i))})), i:0, score:0, answers:[], start:Date.now() }; go(screenQuestion); });
+}
+function screenQuestion(){ mode="quiz"; const q=Q.qs[Q.i]; let sel=null, locked=false;
+  app.innerHTML=`<section class="screen card"><div class="row between"><span class="pill">Q${Q.i+1}/${Q.qs.length}</span><span class="pill">Score ${Q.score}</span></div>
+    <div class="rail" style="margin-top:10px"><i style="width:${Q.i/Q.qs.length*100}%"></i></div>
+    <p class="small muted" style="margin:12px 0 0">${q.topic}</p><h3 class="qprompt">${q.q}</h3>
+    <div class="qopts">${q.order.map((oi,k)=>`<button class="qopt" data-oi="${oi}"><span class="ltr">${"ABCD"[k]}</span><span>${q.o[oi]}</span></button>`).join("")}</div>
+    <div id="qfb" aria-live="polite"></div><div class="row end" style="margin-top:14px"><button class="btn btn-sm" id="qsub" disabled>Submit</button></div></section>`;
+  const sub=document.getElementById("qsub"), btns=app.querySelectorAll(".qopt");
+  btns.forEach(b=>b.addEventListener("click",()=>{ if(locked) return; btns.forEach(x=>x.classList.remove("sel")); b.classList.add("sel"); sel=+b.dataset.oi; sub.disabled=false; }));
+  sub.addEventListener("click",()=>{ if(!locked){ if(sel===null) return; locked=true; const ok=sel===q.a; if(ok) Q.score++;
+      Q.answers.push({q:q.q,chosen:q.o[sel],correct:q.o[q.a],ok,ex:q.ex});
+      btns.forEach(x=>{ x.disabled=true; const oi=+x.dataset.oi; if(oi===q.a) x.classList.add("right"); else if(oi===sel) x.classList.add("wrong"); x.classList.remove("sel"); });
+      document.getElementById("qfb").innerHTML=`<div class="fb ${ok?"good":"bad"}"><b>${ok?"Correct. +1":"Not quite."}</b> ${q.ex}</div>`;
+      sub.textContent=Q.i+1<Q.qs.length?"Next ▸":"See result";
+    } else if(Q.i+1<Q.qs.length){ Q.i++; go(screenQuestion); } else finishQuiz(); });
+}
+function finishQuiz(){ const r={ score:Q.score, total:15, pct:Math.round(Q.score/15*100), ms:Date.now()-Q.start, date:new Date().toISOString(), attempt:S.results.length+1, activities:doneCount() }; S.results.push(r); save(); go(screenResult,r,Q.answers); }
+function screenResult(r,answers){ mode="result"; const g=gradeOf(r.score), pass=r.score>=9;
+  const mins=Math.floor(r.ms/60000), secs=Math.round((r.ms%60000)/1000), when=new Date(r.date).toLocaleString();
+  const text=`Cybercrime, Privacy & Ethics — Activity Result
+Name: ${S.name}
+Roll no.: ${S.roll}
+Quiz: ${r.score}/15 (${r.pct}%) — Grade ${g.g} (${g.t}) — ${pass?"PASS":"Needs revision"}
+Activities: ${r.activities}/15
+Attempt: ${r.attempt} · ${mins}m ${secs}s · ${when}`;
+  app.innerHTML=`<section class="screen stack"><div class="card"><div class="row between"><span class="eyebrow" style="margin:0">Result</span><span class="pill">Attempt ${r.attempt}</span></div>
+      <h2 style="margin:8px 0 14px">Cybercrime, Privacy &amp; Ethics result</h2>
+      <div class="ring" style="--p:${r.pct}"><div><div><b>${r.score}</b><span>of 15</span></div></div></div>
+      <div class="kv"><div><small>Student</small><b>${esc(S.name)}</b></div><div><small>Roll no.</small><b>${esc(S.roll)}</b></div>
+        <div><small>Grade</small><b>${g.g} — ${g.t}</b></div><div><small>Status</small><b class="${pass?"status-pass":"status-fail"}">${pass?"Pass":"Needs revision"}</b></div>
+        <div><small>Activities</small><b>${r.activities} / 15</b></div><div><small>Time</small><b>${mins}m ${secs}s</b></div></div>
+      <p class="small muted" style="margin-top:12px">Screenshot this card or copy the text for your teacher.</p>
+      <div class="row wrap"><button class="btn btn-sm" id="copy">Copy result</button><button class="btn btn-quiet btn-sm" id="retake">Retake</button><button class="btn btn-quiet btn-sm" id="rmap">Map</button></div><div id="ca"></div></div>
+    <div class="card"><h3>Review</h3><ul class="review">${answers.map(a=>`<li><b>${a.q}</b><br><span class="${a.ok?"yes":"no"}">${a.ok?"✓":"✗"} Your answer: ${a.chosen}</span>${a.ok?"":`<br><span class="yes">✓ Correct: ${a.correct}</span>`}<div class="small muted" style="margin-top:3px">${a.ex}</div></li>`).join("")}</ul></div></section>`;
+  const copyBtn=document.getElementById("copy");
+  copyBtn.addEventListener("click",()=>{ const fb=()=>{ const ca=document.getElementById("ca"); ca.innerHTML=`<textarea class="copybox" readonly></textarea>`; const ta=ca.querySelector("textarea"); ta.value=text; ta.focus(); ta.select(); };
+    try{ if(navigator.clipboard&&navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(()=>{ copyBtn.textContent="Copied"; setTimeout(()=>copyBtn.textContent="Copy result",2000); }).catch(fb); else fb(); }catch(e){ fb(); } });
+  document.getElementById("retake").addEventListener("click",()=>go(screenQuizIntro));
+  document.getElementById("rmap").addEventListener("click",()=>go(screenOverview));
+}
+load(); go(screenWelcome);
+})();
+</script>
+</body>
+</html>
